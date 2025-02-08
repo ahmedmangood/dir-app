@@ -24,7 +24,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
           key={choice._id}
           onClick={() => onButtonClick(choice)}
           variant="outline"
-          className="w-[380px] h-[100px] text-2xl rounded-lg"
+          className="w-[380px] h-[100px] text-2xl rounded-lg hover:bg-gray-100"
         >
           {choice.name}
         </Button>

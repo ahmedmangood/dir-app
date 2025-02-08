@@ -29,10 +29,10 @@ export default function Home() {
     <main className="flex justify-center items-center">
       <div className="p-8">
         <div className="flex flex-col justify-center items-center mb-20">
-          <h1 className="text-3xl font-bold mb-6 text-center">
-            مرحبًا! اضغط على اسم المكتب للحصول على الاتجاهات
-          </h1>
           <Image src={"/logo.png"} alt="logo" width={100} height={100} />
+          <h1 className="text-3xl font-bold mb-6 text-center">
+            مرحبًا 👋 من فضلك إضغط على اسم المكتب للحصول على الإتجاهات
+          </h1>
         </div>
         <ButtonGroup choices={choices} onButtonClick={handleButtonClick} />
         <Modal
