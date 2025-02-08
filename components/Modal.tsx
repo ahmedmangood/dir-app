@@ -18,18 +18,19 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   steps: string[];
+  title: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, steps }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, steps, title }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[800px] h-auto bg-white ">
+      <DialogContent className="w-[100%] md:w-[800px] h-auto bg-white ">
         <DialogHeader className="mt-10">
           <DialogTitle className="text-right text-2xl font-bold">
             الإتجاهات
           </DialogTitle>
           <DialogDescription className="text-right text-xl">
-            من فضلك اتبع الإتجاهات التالية للوصول الى المكتب:
+            من فضلك اتبع الإتجاهات التالية للوصول الى {title}:
           </DialogDescription>
         </DialogHeader>
         <hr />

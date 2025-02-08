@@ -104,12 +104,14 @@ export default function Dashboard() {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
+            required
           />
           <Textarea
             placeholder="كتابة الإتجاهات (إضغط entrt لبدأ اتجاه جديد)"
             name="steps"
             value={formData.steps}
             onChange={handleInputChange}
+            required
           />
           <Button
             type="submit"

@@ -18,13 +18,13 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
   onButtonClick,
 }) => {
   return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
+    <div className="flex flex-col justify-center items-center gap-10 md:grid md:grid-cols-2">
       {choices.map((choice) => (
         <Button
           key={choice._id}
           onClick={() => onButtonClick(choice)}
           variant="outline"
-          className="w-[380px] h-[100px] text-2xl rounded-lg hover:bg-gray-100"
+          className="w-[250px] h-[80px] md:w-[350px] md:h-[100px] text-xl md:text-2xl rounded-lg hover:bg-gray-100 text-center"
         >
           {choice.name}
         </Button>
