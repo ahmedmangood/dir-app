@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import dbConnect from "../../../lib/dbConnect";
 import Choice from "../../../models/Choice";
+import { choiceSchema } from "../../../lib/validation";
+import { z } from "zod";
 
 // GET all choices
 export async function GET() {
@@ -9,21 +11,28 @@ export async function GET() {
   return NextResponse.json(choices);
 }
 
-// POST a new choice with directions
+// POST a new choice
 export async function POST(request: Request) {
   await dbConnect();
   const body = await request.json();
 
-  const { name, steps } = body;
+  try {
+    // Validate the input
+    const validatedData = choiceSchema.parse(body);
 
-  if (!name || !Array.isArray(steps)) {
-    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+    const choice = new Choice(validatedData);
+    await choice.save();
+
+    return NextResponse.json(choice, { status: 201 });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: error.issues }, { status: 400 });
+    }
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
-
-  const choice = new Choice({ name, steps });
-  await choice.save();
-
-  return NextResponse.json(choice, { status: 201 });
 }
 
 // PUT (update) an existing choice
@@ -31,23 +40,37 @@ export async function PUT(request: Request) {
   await dbConnect();
   const body = await request.json();
 
-  const { _id, name, steps } = body;
+  try {
+    // Validate the input
+    const validatedData = choiceSchema.parse(body);
 
-  if (!_id || !name || !Array.isArray(steps)) {
-    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+    const updatedChoice = await Choice.findByIdAndUpdate(
+      validatedData._id,
+      {
+        name: validatedData.name,
+        steps: validatedData.steps,
+        image: validatedData.image,
+      },
+      { new: true }
+    );
+
+    if (!updatedChoice) {
+      return NextResponse.json(
+        { error: "لم يتم العثور على الإختيار" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(updatedChoice);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: error.issues }, { status: 400 });
+    }
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
-
-  const updatedChoice = await Choice.findByIdAndUpdate(
-    _id,
-    { name, steps },
-    { new: true }
-  );
-
-  if (!updatedChoice) {
-    return NextResponse.json({ error: "Choice not found" }, { status: 404 });
-  }
-
-  return NextResponse.json(updatedChoice);
 }
 
 // DELETE a choice

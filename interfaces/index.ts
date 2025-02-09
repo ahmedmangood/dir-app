@@ -1,5 +1,6 @@
 export interface Choice {
-  _id: string;
+  _id?: string;
   name: string;
   steps?: string[]; // Optional steps
+  image?: string;
 }

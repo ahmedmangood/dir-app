@@ -12,6 +12,7 @@ export default function Home() {
   const [selectedDirection, setSelectedDirection] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setSelectedTitle] = useState<string>("");
+  const [image, setSelectedImage] = useState<string>("");
 
   useEffect(() => {
     const fetchChoices = async () => {
@@ -24,6 +25,7 @@ export default function Home() {
   const handleButtonClick = (choice: Choice) => {
     setSelectedDirection(choice.steps || []);
     setSelectedTitle(choice.name);
+    setSelectedImage(choice.image || ""); // Set the image URL
     setIsModalOpen(true);
   };
 
@@ -42,6 +44,7 @@ export default function Home() {
           onClose={() => setIsModalOpen(false)}
           steps={selectedDirection}
           title={title}
+          img={image}
         />
       </div>
     </main>
