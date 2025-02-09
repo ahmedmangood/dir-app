@@ -25,8 +25,8 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[100%] md:w-[800px] h-auto bg-white ">
-        <DialogHeader className="mt-10">
+      <DialogContent className="w-[100%] max-w-[1000px] h-auto bg-white ">
+        <DialogHeader className="mt-5">
           <DialogTitle className="text-right text-2xl font-bold">
             الإتجاهات
           </DialogTitle>
@@ -36,11 +36,14 @@ const Modal: React.FC<ModalProps> = ({
         </DialogHeader>
         <hr />
         {/* Display Steps */}
-        <ul className="flex gap-4">
+        <ul className="flex flex-wrap gap-4">
           {steps.length > 0 ? (
             steps.map((step, index) => (
               <li key={index} className="flex items-center gap-2">
-                <span className="font-bold">
+                <span className="font-bold flex">
+                  <span className="border-2 border-gray-400 border-dotted ps-[2px] pe-[2px] w-5 h-5 text-center rounded-full flex items-center justify-center">
+                    {index + 1}
+                  </span>{" "}
                   <ArrowBigLeftIcon />
                 </span>
                 <span className="text-md">{step}</span>
@@ -52,13 +55,13 @@ const Modal: React.FC<ModalProps> = ({
         </ul>
         {/* Display Image */}
         {img && (
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-4 mt-5">
             <Image
               src={img}
               alt={title}
-              className="w-full h-auto rounded-md max-h-60 object-cover"
-              width={200}
-              height={100}
+              className="w-[600px] h-[300px] rounded-md object-cover"
+              width={400}
+              height={400}
             />
           </div>
         )}
