@@ -55,13 +55,13 @@ const Modal: React.FC<ModalProps> = ({
         </ul>
         {/* Display Image */}
         {img && (
-          <div className="flex justify-center mb-4 mt-5">
+          <div className="flex justify-center mb-4 mt-5 w-[100%]">
             <Image
               src={img}
               alt={title}
-              className="w-[600px] h-[300px] rounded-md object-cover"
-              width={400}
-              height={400}
+              className="w-[1000px] h-[350px] rounded-md object-center"
+              width={800}
+              height={800}
             />
           </div>
         )}
